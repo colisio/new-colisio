@@ -1,59 +1,104 @@
-# ColisioCo
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.4.
+# 🧱 Projeto Colisio - Angular + Docker (Produção)
 
-## Development server
+Este é um projeto Angular preparado para ser executado em ambiente de produção utilizando **Docker Compose** com **Nginx**. Abaixo está o passo a passo para gerar o build e subir a aplicação.
 
-To start a local development server, run:
+---
 
-```bash
-ng serve
-```
+## 📦 Pré-requisitos
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Antes de iniciar, certifique-se de ter os seguintes softwares instalados:
 
-## Code scaffolding
+- [Node.js](https://nodejs.org/) (usado apenas localmente para gerar o build Angular)
+- [Docker](https://www.docker.com/)
+- [Docker Compose](https://docs.docker.com/compose/)
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+---
 
-```bash
-ng generate component component-name
-```
+## 🚀 Passo a passo para subir em produção
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+### 1. Parar containers antigos (se houver)
 
 ```bash
-ng generate --help
+docker compose down
 ```
 
-## Building
+---
 
-To build the project run:
+### 2. Gerar o build de produção do Angular
 
 ```bash
-ng build
+npm install
+npm run build -- --configuration production --base-href=/
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+> O build será gerado na pasta: `dist/colisio`
 
-## Running unit tests
+---
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+### 3. Build da imagem Docker
 
 ```bash
-ng test
+docker compose build --no-cache
 ```
 
-## Running end-to-end tests
+---
 
-For end-to-end (e2e) testing, run:
+### 4. Subir a aplicação
 
 ```bash
-ng e2e
+docker compose up -d
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+---
 
-## Additional Resources
+### 5. Acessar no navegador
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+A aplicação estará disponível em:
+
+```
+http://IP_EXTERNO:8080
+```
+
+---
+
+## 🛑 Parar a aplicação
+
+Para parar e remover os containers:
+
+```bash
+docker compose down
+```
+
+---
+
+## 📁 Estrutura esperada do projeto
+
+```
+colisio/
+├── dist/
+│   └── colisio/
+├── src/
+├── nginx.conf
+├── Dockerfile
+├── docker-compose.yml
+├── angular.json
+├── package.json
+└── README.md
+```
+
+---
+
+## 📝 Observações
+
+- A flag `--base-href=/` é importante para o roteamento funcionar corretamente com Nginx.
+- O `nginx.conf` deve estar configurado para servir corretamente o Angular, incluindo o fallback para `index.html` em rotas SPA.
+
+---
+
+## 👨‍💻 Autor
+
+Slaython Gleyson – [colisio.co](https://colisio.co)  
+Contato: colisio.dev@gmail.com
+
+---# new-colisio
