@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "colisio.co": {
+    "colisio": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/colisio.co",
+            "outputPath": "dist/colisio",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -33,6 +33,7 @@
           },
           "configurations": {
             "production": {
+              "baseHref": "/",
               "budgets": [
                 {
                   "type": "initial",
@@ -59,10 +60,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "colisio.co:build:production"
+              "buildTarget": "colisio:build:production"
             },
             "development": {
-              "buildTarget": "colisio.co:build:development"
+              "buildTarget": "colisio:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -92,5 +93,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }
